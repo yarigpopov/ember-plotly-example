@@ -31,6 +31,14 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
+  if (environment === 'github') {
+    // ENV['ember-cli-mirage'] = {
+    //     enabled: true
+    // };
+    ENV.locationType = 'hash';
+    ENV.rootURL = 'ember-plotly-example/';
+  }
+
   if (environment === 'test') {
     // Testem prefers this...
     ENV.locationType = 'none';
