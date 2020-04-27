@@ -4,6 +4,8 @@ import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
 import ObjectProxy from '@ember/object/proxy';
 const ObjectPromiseProxy = ObjectProxy.extend(PromiseProxyMixin);
 
+import Plotly from 'plotly.js'
+
 // TODO: Make configurable via ENV
 // https://github.com/plotly/plotly.js/blob/5bc25b490702e5ed61265207833dbd58e8ab27f1/src/plot_api/plot_config.js#L22-L184
 const defaultConfig = {
@@ -69,10 +71,12 @@ export default class PlotlyService extends Service {
   constructor(...args) {
     super(...args);
 
-    this.set('_plotly', ObjectPromiseProxy.create({
-      // somehow import('plotly.js') does not work
-      promise: import('plotly.js/dist/plotly').then(module => module.default)
-    }));
+    // this.set('_plotly', ObjectPromiseProxy.create({
+    //   // somehow import('plotly.js') does not work
+    //   promise: import('plotly.js/dist/plotly').then(module => module.default)
+    // }));
+    this.set('_plotly', Plotly);
+
 
     /* global Ember */
     if (Ember.testing) {

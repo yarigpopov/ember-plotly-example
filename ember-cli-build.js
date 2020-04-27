@@ -12,9 +12,9 @@ module.exports = function(defaults) {
         }
       }
     },
-    babel: {
-      plugins: [ require.resolve('ember-auto-import/babel-plugin') ]
-    }
+    // babel: {
+    //   plugins: [ require.resolve('ember-auto-import/babel-plugin') ]
+    // }
   });
 
   // Use `app.import` to add additional libraries to the generated
