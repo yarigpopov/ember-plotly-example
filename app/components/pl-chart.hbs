@@ -1,1 +1,4 @@
-<div {{did-insert (action this.drawChart)}}></div>
+<div
+{{did-insert this.drawChart}}
+{{did-update this.drawChart @dataValue}}
+></div>

@@ -54,6 +54,71 @@
     }
   });
 });
+;define("plotly-ember-example/components/form-for-values", ["exports", "@glimmer/component"], function (_exports, _component) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor, _temp;
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
+  /*
+    <Input
+    type="number"
+    value={{this.data.value}}
+    {{!-- {{on "change" (fn (mut "data.value") "target.value")}} --}}
+  />
+  <div>
+    <input type="range" id="revenue" name="revenue"
+          min="0" max="300"
+          value={{readonly this.data.value}}
+          onchange={{action (mut this.data.value) value="target.value"}}
+           >
+    <label for="revenue">Revenue</label>
+  </div>
+  
+  {{yield this.data}}
+  */
+  {
+    id: "aNn6LiKl",
+    block: "{\"symbols\":[\"&default\"],\"statements\":[[7,\"input\",[[14,\"value\",[27,[24,0],[\"data\",\"value\"]],null],[23,\"type\",\"number\",null]],[[],[]],null],[1,1,0,0,\"\\n\"],[9,\"div\",true],[10],[1,1,0,0,\"\\n  \"],[9,\"input\",true],[12,\"id\",\"revenue\",null],[12,\"name\",\"revenue\",null],[12,\"min\",\"0\",null],[12,\"max\",\"300\",null],[13,\"value\",[31,220,8,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"data\",\"value\"]]],null],null],[13,\"onchange\",[31,266,6,[27,[26,2,\"CallHead\"],[]],[[27,[24,0],[]],[31,274,3,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[\"data\",\"value\"]]],null]],[[\"value\"],[\"target.value\"]]],null],[12,\"type\",\"range\",null],[10],[11],[1,1,0,0,\"\\n  \"],[9,\"label\",true],[12,\"for\",\"revenue\",null],[10],[1,1,0,0,\"Revenue\"],[11],[1,1,0,0,\"\\n\"],[11],[1,1,0,0,\"\\n\\n\"],[16,1,[[27,[24,0],[\"data\"]]]]],\"hasEval\":false,\"upvars\":[\"readonly\",\"mut\",\"action\"]}",
+    meta: {
+      moduleName: "plotly-ember-example/components/form-for-values.hbs"
+    }
+  });
+
+  let FormForValuesComponent = (_class = (_temp = class FormForValuesComponent extends _component.default {
+    constructor(...args) {
+      super(...args);
+
+      _initializerDefineProperty(this, "data", _descriptor, this);
+    }
+
+  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "data", [Ember._tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: function () {
+      return {
+        value: 200
+      };
+    }
+  })), _class);
+  _exports.default = FormForValuesComponent;
+
+  Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, FormForValuesComponent);
+});
 ;define("plotly-ember-example/components/pl-chart", ["exports", "@glimmer/component", "plotly.js"], function (_exports, _component, _plotly) {
   "use strict";
 
@@ -68,11 +133,14 @@
 
   const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
   /*
-    <div {{did-insert (action this.drawChart)}}></div>
+    <div
+  {{did-insert this.drawChart}}
+  {{did-update this.drawChart @dataValue}}
+  ></div>
   */
   {
-    id: "to3JwKtz",
-    block: "{\"symbols\":[],\"statements\":[[9,\"div\",false],[3,0,0,[27,[26,1,\"ModifierHead\"],[]],[[31,19,6,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[]],[27,[24,0],[\"drawChart\"]]],null]],null],[10],[11]],\"hasEval\":false,\"upvars\":[\"action\",\"did-insert\"]}",
+    id: "cwE6HwLb",
+    block: "{\"symbols\":[\"@dataValue\"],\"statements\":[[9,\"div\",false],[3,0,0,[27,[26,0,\"ModifierHead\"],[]],[[27,[24,0],[\"drawChart\"]]],null],[3,0,0,[27,[26,1,\"ModifierHead\"],[]],[[27,[24,0],[\"drawChart\"]],[27,[24,1],[]]],null],[10],[11]],\"hasEval\":false,\"upvars\":[\"did-insert\",\"did-update\"]}",
     meta: {
       moduleName: "plotly-ember-example/components/pl-chart.hbs"
     }
@@ -80,14 +148,95 @@
 
   let PlChartComponent = (_class = class PlChartComponent extends _component.default {
     drawChart(element) {
-      _plotly.default.newPlot(element, [{
-        x: [1, 2, 3, 4, 5],
-        y: [1, 2, 4, 8, 16]
-      }], {
-        margin: {
-          t: 0
+      let _data = this.args.data;
+      const externalData = [{
+        value: this.args.dataValue,
+        deltaReference: 200,
+        titleText: "Revenue",
+        gaugeRange: [null, 300],
+        guageThreshold: 170,
+        guageSteps: {
+          zero: 0,
+          one: 150,
+          two: 250
+        },
+        domainY: [0.08, 0.25]
+      }, {
+        value: 35,
+        deltaReference: 200,
+        titleText: "Profit",
+        gaugeRange: [null, 100],
+        guageThreshold: 170,
+        guageSteps: {
+          zero: 0,
+          one: 25,
+          two: 75
+        },
+        domainY: [0.4, 0.6]
+      }, {
+        value: 220,
+        deltaReference: 200,
+        titleText: "Satisfaction",
+        gaugeRange: [null, 300],
+        guageThreshold: 210,
+        guageSteps: {
+          zero: 0,
+          one: 150,
+          two: 250
+        },
+        domainY: [0.7, 0.9]
+      }];
+      let data = externalData.map(i => ({
+        type: "indicator",
+        mode: "number+gauge+delta",
+        value: i.value,
+        delta: {
+          reference: i.deltaReference
+        },
+        domain: {
+          x: [0.25, 1],
+          y: i.domainY
+        },
+        title: {
+          text: i.titleText
+        },
+        gauge: {
+          shape: "bullet",
+          axis: {
+            range: i.gaugeRange
+          },
+          threshold: {
+            line: {
+              color: "1B1534",
+              width: 5
+            },
+            thickness: 0.75,
+            value: i.guageThreshold
+          },
+          steps: [{
+            range: [i.guageSteps.zero, i.guageSteps.one],
+            color: "#8A00E5"
+          }, {
+            range: [i.guageSteps.one, i.guageSteps.two],
+            color: "#CF98FF"
+          }],
+          bar: {
+            color: "#1B1534"
+          }
         }
-      });
+      }));
+      var layout = {
+        width: 600,
+        height: 250,
+        margin: {
+          t: 10,
+          r: 25,
+          l: 25,
+          b: 10
+        }
+      };
+
+      _plotly.default.react(element, data, layout);
     }
 
   }, (_applyDecoratedDescriptor(_class.prototype, "drawChart", [Ember._action], Object.getOwnPropertyDescriptor(_class.prototype, "drawChart"), _class.prototype)), _class);
@@ -515,8 +664,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "IcI6dyif",
-    "block": "{\"symbols\":[],\"statements\":[[7,\"pl-chart\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[1,1,0,0,\"\\n\"],[1,0,0,0,[31,0,0,[27,[26,1,\"CallHead\"],[]],[[31,0,0,[27,[26,0,\"CallHead\"],[]],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
+    "id": "BNfQc9AK",
+    "block": "{\"symbols\":[\"formData\"],\"statements\":[[7,\"form-for-values\",[],[[],[]],[[\"default\"],[{\"statements\":[[1,1,0,0,\"\\n  \"],[7,\"pl-chart\",[],[[\"@data\",\"@dataValue\"],[[27,[24,1],[]],[27,[24,1],[\"value\"]]]],null],[1,1,0,0,\"\\n\"]],\"parameters\":[1]}]]],[1,1,0,0,\"\\n\\n\"],[1,0,0,0,[31,0,0,[27,[26,1,\"CallHead\"],[]],[[31,0,0,[27,[26,0,\"CallHead\"],[]],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
     "meta": {
       "moduleName": "plotly-ember-example/templates/application.hbs"
     }
@@ -599,7 +748,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("plotly-ember-example/app")["default"].create({"name":"plotly-ember-example","version":"0.0.0+756130e0"});
+            require("plotly-ember-example/app")["default"].create({"name":"plotly-ember-example","version":"0.0.0+196376eb"});
           }
         
 //# sourceMappingURL=plotly-ember-example.map

@@ -1,0 +1,15 @@
+<Input
+  type="number"
+  value={{this.data.value}}
+  {{!-- {{on "change" (fn (mut "data.value") "target.value")}} --}}
+/>
+<div>
+  <input type="range" id="revenue" name="revenue"
+        min="0" max="300"
+        value={{readonly this.data.value}}
+        onchange={{action (mut this.data.value) value="target.value"}}
+         >
+  <label for="revenue">Revenue</label>
+</div>
+
+{{yield this.data}}

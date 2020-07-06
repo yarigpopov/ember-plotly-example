@@ -1,5 +1,5 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<PlChart />
-{{!-- Feel free to remove this! --}}
+<FormForValues as |formData|>
+  <PlChart @data={{formData}} @dataValue={{formData.value}}/>
+</FormForValues>
 
 {{outlet}}
