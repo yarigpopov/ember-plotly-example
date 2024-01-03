@@ -60,6 +60,6 @@
     "edition": "octane"
   },
   "dependencies": {
-    "plotly.js": "^1.53.0"
+    "plotly.js": "^2.25.2"
   }
 }
